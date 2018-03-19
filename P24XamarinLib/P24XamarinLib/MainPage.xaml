@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="P24XamarinLib.MainPage">
+  <StackLayout>
+    <Label Text="P24XamarinLib" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" />
+    <Button Text="Transfer trnRequest" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Clicked="TransferTrnRequest" />
+    <Button Text="Transfer trnDirect" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Clicked="TransferTrnDirect"  />
+    <Button Text="Transfer express" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Clicked="TransferExpress"  />
+    <Button Text="Transfer passage" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Clicked="TransferPassage" />
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+      <Label Text="Sandbox" FontSize="20" XAlign="End" YAlign="Center" />
+      <Switch Toggled="ToggledEventHandler" />
+    </StackLayout>
+    <Label x:Name="ResultLabel"/>
+  </StackLayout>
+</ContentPage>
