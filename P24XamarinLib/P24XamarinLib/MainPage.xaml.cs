@@ -65,6 +65,9 @@ namespace P24XamarinLib
                     var errorCode = result.ErrorCode;
                     ResultLabel.Text = $"Error code: {result.ErrorCode}";
                 }
+            } else {
+                //cancel
+                ResultLabel.Text = $"Cancelled";
             }
         }
 

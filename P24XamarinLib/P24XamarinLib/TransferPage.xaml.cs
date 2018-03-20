@@ -1,6 +1,7 @@
 ﻿using P24Lib.Helpers;
 using P24Lib.Models.Params;
 using Xamarin.Forms;
+using P24Lib;
 
 namespace P24XamarinLib
 {
@@ -9,10 +10,8 @@ namespace P24XamarinLib
 
         public TransferPage(TrnDirectParams transactionParams)
         {
-            
             var content = TransferPageHelper.ContentForTrnDirect(transactionParams);
             content.AddNavigating(WebView_Navigating);
-
             Content = content;
         }
 
@@ -42,15 +41,29 @@ namespace P24XamarinLib
         {
             if (TransferPageHelper.CanMoveToBankList())
             {
+                DisposeWebView();
                 var newContent = TransferPageHelper.GetContentForBack();
-                newContent.Navigating += WebView_Navigating;
+                newContent.AddNavigating(WebView_Navigating);
                 Content = newContent;
                 return true;
             }
             else
             {
+                DisposeWebView();
+                Content = null;
                 return base.OnBackButtonPressed();
             }
         }
+
+        public void DisposeWebView() {
+            if (Content != null) {
+                (Content as WebViewWithProgress).DisposeWebView();
+            }
+        }
+
+        protected override void OnDisappearing() {
+            DisposeWebView();
+        }
+
     }
 }
