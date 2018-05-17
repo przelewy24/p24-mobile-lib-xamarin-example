@@ -10,22 +10,19 @@ namespace P24XamarinLib
 
         public TransferPage(TrnDirectParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForTrnDirect(transactionParams);
-            content.AddNavigating(WebView_Navigating);
+            var content = TransferPageHelper.ContentForTrnDirect(transactionParams, WebView_Navigating);
             Content = content;
         }
 
         public TransferPage(TrnRequestParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForTrnRequest(transactionParams);
-            content.AddNavigating(WebView_Navigating);
+            var content = TransferPageHelper.ContentForTrnRequest(transactionParams, WebView_Navigating);
             Content = content;
         }
 
         public TransferPage(ExpressParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForExpress(transactionParams);
-            content.AddNavigating(WebView_Navigating);
+            var content = TransferPageHelper.ContentForExpress(transactionParams, WebView_Navigating);
             Content = content;
         }
 
@@ -42,8 +39,7 @@ namespace P24XamarinLib
             if (TransferPageHelper.CanMoveToBankList())
             {
                 DisposeWebView();
-                var newContent = TransferPageHelper.GetContentForBack();
-                newContent.AddNavigating(WebView_Navigating);
+                var newContent = TransferPageHelper.GetContentForBack(WebView_Navigating);
                 Content = newContent;
                 return true;
             }
@@ -55,13 +51,16 @@ namespace P24XamarinLib
             }
         }
 
-        public void DisposeWebView() {
-            if (Content != null) {
+        public void DisposeWebView()
+        {
+            if (Content != null)
+            {
                 (Content as WebViewWithProgress).DisposeWebView();
             }
         }
 
-        protected override void OnDisappearing() {
+        protected override void OnDisappearing()
+        {
             DisposeWebView();
         }
 
