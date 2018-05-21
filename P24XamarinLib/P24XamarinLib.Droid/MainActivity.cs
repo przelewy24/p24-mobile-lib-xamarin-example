@@ -19,6 +19,16 @@ namespace P24XamarinLib.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Android.Resource.Id.Home) {
+                OnBackPressed();
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
     }
 }
 

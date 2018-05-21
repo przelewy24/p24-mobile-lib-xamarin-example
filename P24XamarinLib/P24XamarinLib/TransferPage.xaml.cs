@@ -10,28 +10,20 @@ namespace P24XamarinLib
 
         public TransferPage(TrnDirectParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForTrnDirect(transactionParams, WebView_Navigating);
+            var content = TransferPageHelper.ContentForTrnDirect(transactionParams);
             Content = content;
         }
 
         public TransferPage(TrnRequestParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForTrnRequest(transactionParams, WebView_Navigating);
+            var content = TransferPageHelper.ContentForTrnRequest(transactionParams);
             Content = content;
         }
 
         public TransferPage(ExpressParams transactionParams)
         {
-            var content = TransferPageHelper.ContentForExpress(transactionParams, WebView_Navigating);
+            var content = TransferPageHelper.ContentForExpress(transactionParams);
             Content = content;
-        }
-
-        private void WebView_Navigating(object sender, WebNavigatingEventArgs e)
-        {
-            if (TransferPageHelper.IfTransactionFinished(e))
-            {
-                Navigation.PopAsync();
-            }
         }
 
         protected override bool OnBackButtonPressed()
@@ -39,7 +31,7 @@ namespace P24XamarinLib
             if (TransferPageHelper.CanMoveToBankList())
             {
                 DisposeWebView();
-                var newContent = TransferPageHelper.GetContentForBack(WebView_Navigating);
+                var newContent = TransferPageHelper.GetContentForBack();
                 Content = newContent;
                 return true;
             }
@@ -47,21 +39,25 @@ namespace P24XamarinLib
             {
                 DisposeWebView();
                 Content = null;
-                return base.OnBackButtonPressed();
+                BanksUrl.Clear();
+                Navigation.PopAsync();
+                return true;
             }
         }
 
-        public void DisposeWebView()
-        {
-            if (Content != null)
-            {
+        public void DisposeWebView() {
+            if (Content != null) {
                 (Content as WebViewWithProgress).DisposeWebView();
             }
         }
 
-        protected override void OnDisappearing()
-        {
+        protected override void OnDisappearing() {
             DisposeWebView();
+        }
+
+        public void CustomBackButtonAction()
+        {
+            OnBackButtonPressed();
         }
 
     }

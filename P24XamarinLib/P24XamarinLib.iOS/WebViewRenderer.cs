@@ -1,9 +1,10 @@
 ﻿using P24XamarinLib.iOS;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using System.Threading.Tasks;
 using UIKit;
+using System.Threading.Tasks;
 using P24Lib;
+using Foundation;
 
 [assembly: ExportRenderer(typeof(P24WebView), typeof(WebViewRender))]
 namespace P24XamarinLib.iOS
@@ -29,17 +30,21 @@ namespace P24XamarinLib.iOS
 
         }
 
-        private void initRefreshCommand(P24WebView webView)
+
+        private void initRefreshCommand(P24WebView p24WebView)
         {
             if (NativeView != null)
             {
-                webView.reloadAction = () =>
+                var uiWebView = (UIWebView)NativeView;
+                p24WebView.reloadAction = () =>
                 {
-                    ((UIWebView)NativeView).Reload();
+                    uiWebView.Reload();
                 };
+
             }
 
         }
 
     }
+
 }
