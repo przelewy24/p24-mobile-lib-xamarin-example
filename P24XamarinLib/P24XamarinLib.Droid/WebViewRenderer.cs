@@ -34,6 +34,12 @@ namespace P24XamarinLib.Droid
 
             webViewClient = new P24WebViewClient(element);
             Control?.SetWebViewClient(webViewClient);
+            p24WebView.OnDisposed += P24WebView_OnDisposed;
+        }
+
+        void P24WebView_OnDisposed(object sender, EventArgs e)
+        {
+            Control?.SetWebViewClient(null);
         }
     }
 
